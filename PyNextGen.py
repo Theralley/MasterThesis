@@ -4,8 +4,11 @@ import time
 import sys
 import imutils
 import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 
 imagename = sys.argv[1]
+yoloV = sys.argv[2]
+tt = sys.argv[3]
 
 a = 1
 
@@ -16,18 +19,30 @@ diff = 2
 yxdiff = 1
 yydiff = 1
 
+t = 0
+
 line_thickness = 2
 
 # keep looping
 #Load YOLO
+if(yoloV == "v4"):
+    net = cv2.dnn.readNet("yolov4.weights","yolov4.cfg") # Original yolov3
 
-net = cv2.dnn.readNet("yolov4.weights","yolov4.cfg") # Original yolov3
+if(yoloV == "v3-tiny"):
+    net = cv2.dnn.readNet("yolov3-tiny.weights","yolov3-tiny.cfg") # Original yolov3
+
+if(yoloV != "v3-tiny" and yoloV != "v4"):
+    print("Enter value after video name for Weight: v4, v3-tiny")
 #net = cv2.dnn.readNet("yolov3-tiny.weights","yolov3-tiny.cfg") #Tiny Yolo
 classes = []
 with open("coco.names","r") as f:
     classes = [line.strip() for line in f.readlines()]
 
 #print(classes)
+
+im = mpimg.imread("ResultTemp.png")
+cv2.imwrite("ResultDot.png",im)
+im = mpimg.imread("ResultDot.png")
 
 layer_names = net.getLayerNames()
 outputlayers = [layer_names[i[0] - 1] for i in net.getUnconnectedOutLayers()]
@@ -39,24 +54,27 @@ font = cv2.FONT_HERSHEY_PLAIN
 frame_id = 0
 cap = cv2.VideoCapture(imagename)
 
+#FRAM TO START ON#
+for x in range(0, int(tt)):
+    _,frame= cap.read()
 
 while True:
     (grabbed, frame) = cap.read()
 
-    #Jumpover pictures
-    for x in range(0, 30):
+    #JUMPOVER PICTURES#
+    for x in range(0, 0):
         _,frame= cap.read()
 
     if not grabbed:
         break
         print("ERROR WHILE GRAB")
 
-##CHANGE COLOR SPECTRUM
+    ##CHANGE COLOR SPECTRUM
     b, g, r = cv2.split(frame)
     frame = cv2.merge((b, g, r))
 
     #detecting objects
-    blob = cv2.dnn.blobFromImage(frame,0.00392,(320,320),(0,0,0),True,crop=False) #reduce 416 to 320
+    blob = cv2.dnn.blobFromImage(frame,0.00392,(416,416),(0,0,0),True,crop=False) #reduce 416 to 320
 
     net.setInput(blob)
     outs = net.forward(outputlayers)
@@ -67,17 +85,18 @@ while True:
     boxes=[]
 
     height,width,channels = frame.shape
+    #print(frame.shape[1])
 
     #########EDGE FIXES############
     # convert the frame to grayscale, blur it, and detect edges
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-    blurred = cv2.GaussianBlur(gray, (7, 7), 0)
-    edged = cv2.Canny(blurred, 100, 300)
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    blurred = cv2.GaussianBlur(gray, (3, 3), 5)
+    edged = cv2.Canny(blurred, 100, 400)
     #find contours in the edge map
     cnts = cv2.findContours(edged.copy(), cv2.RETR_EXTERNAL,
     	cv2.CHAIN_APPROX_SIMPLE)
 
-    #cv2.imshow("Edged",edged)
+    cv2.imshow("Edged",edged)
     cnts = imutils.grab_contours(cnts)
 
     # loop over the contours
@@ -86,7 +105,7 @@ while True:
     	peri = cv2.arcLength(c, True)
     	approx = cv2.approxPolyDP(c, 0.01 * peri, True)
     	# ensure that the approximated contour is "roughly" rectangular
-    	if len(approx) >= 3 and len(approx) <= 100:
+    	if len(approx) >= 3 and len(approx) <= 500:
     		# compute the bounding box of the approximated contour and
     		# use the bounding box to compute the aspect ratio
     		(x, y, w, h) = cv2.boundingRect(approx)
@@ -102,26 +121,33 @@ while True:
     		keepAspectRatio = aspectRatio >= 0.4 and aspectRatio <= 2.0
     		# ensure that the contour passes all our tests
     		if keepDims and keepSolidity and keepAspectRatio:
+
+                 if(y == 0):
+                     y = 1
+                 if(x == 0):
+                     x = 1
+
                  xdiff = (xo/x)
                  ydiff = (yo/y)
-
-                 if(xo == 0 or yo == 0 or x == 0 or y == 0):
-                     oyx = 1
-                     x = 1
-                     oyy = 1
-                     y = 1
 
                  if xdiff < 0.5 or xdiff > 1.3 or ydiff < 0.5 or ydiff > 1.3:
                      cv2.putText(frame," UNDEFINED OBJECT; BE CAREFUL ", (x,y+200),font,1,(255,0,0),2)
                      #print("ERROR")
                  else:
-                     print("Contour XY:     ", x,y , " | Difference X : ", (xdiff), " | Difference Y : ", (ydiff))
+                     cv2.drawContours(frame, [approx], -1, (0, 0, 255), 4)
+                     #print("Contour XY:     ", x,y , " | Difference X : ", (xdiff), " | Difference Y : ", (ydiff))
+                     #print(approx[5][0][0])
                      cv2.putText(frame,"TA15", (x,y+200),font,1,(255,0,0),2)
-                     cv2.line(frame, (int(x + 50), int(y + 50)), (x, y), (0, 255, 0), thickness=line_thickness)
-                     cv2.line(frame, (int(x + 50), int(y + 50)), (xo-50, yo-50), (255, 255, 255), thickness=line_thickness)
-                     cv2.line(frame, (int(x + 50), int(y + 50)), (xo+50, yo+50), (255, 255, 255), thickness=line_thickness)
+                     cv2.line(frame, (approx[0][0][0], approx[0][0][1]), (approx[3][0][0], approx[3][0][1]), (0, 255, 0), thickness=line_thickness)
 
-                 cv2.drawContours(frame, [approx], -1, (0, 0, 255), 4)
+                     #im = np.zeros((frame.shape[0],frame.shape[1],3),np.uint8)
+                     im = cv2.circle(im, (approx[0][0][0], approx[0][0][1]), radius=5, color=(0, 0, 255), thickness=-1)
+                     t = t + 1
+
+                     if(t == 100):
+                        cv2.imwrite("ResultDot.png",im)
+                        t = 0
+
                  xo = x
                  yo = y
 
@@ -159,7 +185,7 @@ while True:
             #cv2.putText(frame,label+" "+str(round(confidence,2)),(x,y+30),font,1,(255,0,0),2)
             #print(label+" "+str(round(confidence,2)))
 
-            if(label == "person" or label == "TA15" or label == "truck" or label == "car"):
+            if(label == "person" or label == "TA15" or label == "truck" or label == "car"or label == "motorbike"):
                 print("Yolo XY:        ", x,y," | Confidence: ", str(round(confidence,2)), " | Differs: ", yydiff, yxdiff)
                 cv2.rectangle(frame,(x,y),(x+w,y+h),color,2)
                 cv2.putText(frame,label+" "+str(round(confidence,2)),(x,y+30),font,1,(255,0,0),2)
@@ -168,11 +194,13 @@ while True:
             else:
                 cv2.circle(frame,(center_x,center_y),10,(0,255,0),2)
                 cv2.putText(frame," UNDEFINED OBJECT; BE CAREFUL ",(x,y+30),font,1,(255,0,0),2)
+                #print('After: '+ label)
 
     cv2.imshow("Image",frame)
     key = cv2.waitKey(1) #wait 1ms the loop will start again and we will process the next frame
 
     if key == 27: #esc key stops the process
+        cv2.imwrite("ResultDot.png",im)
         break;
 
 cap.release()
