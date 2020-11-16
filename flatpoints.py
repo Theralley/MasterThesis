@@ -60,6 +60,7 @@ for x in range(line_count):
 
     df.x[x] = qx
     df.y[x] = qy
+    
 ax.scatter(df.x, (df.y), zorder=1, alpha= 0.1, c='b', s=9)
 
 ax.set_title('Plotting points as Angled Camera')

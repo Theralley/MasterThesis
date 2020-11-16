@@ -14,6 +14,9 @@ tt = sys.argv[3]
 heightD = sys.argv[4]
 angle = sys.argv[5]
 
+file = open("out.txt","w")
+file.write("x,y,l,offset\n");
+
 #s = math.degrees(90)-math.degrees(int(angle))
 #print(s)
 
@@ -24,6 +27,10 @@ angle = sys.argv[5]
 #md = int(md*0.83333)
 md = (int(heightD)/(math.sin(math.radians(90)-math.radians(int(angle)))))
 md = int(md)
+c = 0
+
+startpos = [16.428125, 59.405547]
+#angle compared to north
 
 #print(math.pi)
 #print(math.degrees(90))
@@ -31,8 +38,8 @@ md = int(md)
 
 a = 1
 
-xo = 0
-yo = 0
+xo = 0; xsave = 0;
+yo = 0; ysave = 0; wsave = 0
 diff = 2
 
 yxdiff = 1
@@ -133,6 +140,114 @@ while True:
     cnts = imutils.grab_contours(cnts)
 
     # loop over the contours
+    for out in outs:
+        for detection in out:
+            scores = detection[5:]
+            class_id = np.argmax(scores)
+            confidence = scores[class_id]
+            if confidence > 0.2:
+                #onject detected
+                center_x= int(detection[0]*width)
+                center_y= int(detection[1]*height)
+                w = int(detection[2]*width)
+                h = int(detection[3]*height)
+
+                #rectangle co-ordinaters
+                x=int(center_x - w/2)
+                y=int(center_y - h/2)
+
+                boxes.append([x,y,w,h]) #put all rectangle areas
+                confidences.append(float(confidence)) #how confidence was that object detected and show that percentage
+                class_ids.append(class_id) #name of the object tha was detected
+
+    indexes = cv2.dnn.NMSBoxes(boxes,confidences,0.4,0.6)
+
+    for i in range(len(boxes)):
+        if i in indexes:
+            x, y, w, h = boxes[i]
+            label = str(classes[class_ids[i]])
+            confidence = confidences[i]
+            color = colors[class_ids[i]]
+
+            #print('Before: '+ label)
+            #cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),2)
+            #cv2.putText(frame,label+" "+str(round(confidence,2)),(x,y+30),font,1,(255,0,0),2)
+            #print(label+" "+str(round(confidence,2)))
+            if(round(confidence,2) >= 0.40):
+                if(label == "TA15" or label == "truck" or label == "car" or label == "motorbike"):
+                    if(label == "motorbike"):
+                        label = "TA15"
+                    #print("Yolo XY:        ", x,y," | Confidence: ", str(round(confidence,2)), " | Differs: ", yydiff, yxdiff)
+                    cv2.rectangle(frame,(x,y),(x+w,y+h),color,2)
+                    oldx = x; oldy = y
+                    print(w, h)
+                    layedCir = cv2.circle(frame, (x, y), radius=100+w, color=(100, 100, 255), thickness=1)
+                    cv2.putText(frame,label+" "+str(round(confidence,2)),(x,y+30),font,1,(255,0,0),2)
+
+                    lp = float(1.8/pl)
+
+                    c = math.sqrt((((int(1280/2)-x) * (lp))*((int(1280/2)-x) * (lp)) + (md*md)))
+                    c = int(c)
+
+
+                    cv2.line(frame, ((int(1280/2),int(720/2))), ((x), (y)), (0, 255, 0), thickness=line_thickness)
+                    file.write(str(x)); file.write(","); file.write(str(y));file.write(","); file.write(str(c)); file.write("\n");
+                    #cv2.line(frame, ((int(1280/2), y)), ((x), (y)), (0, 255, 0), thickness=line_thickness)
+                    #cv2.line(frame, ((int(1280/2),int(720/2))), ((int(1280/2)), (y)), (0, 0, 255), thickness=line_thickness)
+
+                    im = cv2.circle(im, (x, y), radius=5, color=(0, 255, 0), thickness=-1)
+                    t = t + 1
+
+                    if(t == 100):
+                        cv2.imwrite("ResultDot.png",im)
+                        t = 0
+
+                        #cv2.imwrite('PythonResult/%d.jpg' % a , frame, [cv2.IMWRITE_JPEG_QUALITY, 50])
+                        #a = a + 1
+                        #cv2.imwrite("Black.png",frame)
+
+                if(label == "person"):
+                    pl = h
+
+                    pl = pl*0.6+po*0.4
+
+                    cv2.line(frame, (x, y), ((x), (y+h)), (0, 0, 255), thickness=line_thickness)
+                    cv2.rectangle(frame,(x,y),(x+w,y+h),color,2)
+                    cv2.putText(frame,label+" "+str(round(confidence,2)),(x,y+30),font,1,(255,0,0),2)
+                    #layedCir2 = cv2.circle(frame, (x, y), radius=100+w, color=(0, 0, 255), thickness=1)
+                    #cv2.putText(frame,"1.8m, PX: " + str(pl),(x,y),font,1,(255,0,0),2)
+                    po = pl
+
+                    lp = float(1.8/pl)
+
+                    cv2.line(frame, ((int(1280/2),int(720/2))), ((x), (y)), (0, 0, 255), thickness=line_thickness)
+                    cv2.line(frame, ((int(1280/2),int(720))), ((int(1280/2)), (y)), (0, 0, 255), thickness=line_thickness)
+
+                    c = math.sqrt((((int(1280/2)-x) * (lp))*((int(1280/2)-x) * (lp)) + (md*md)))
+                    c = int(c)
+
+                    cv2.putText(frame,"Lengt from offset: " + str(c),(int(1280/2)-200,int(720/2)),font,1,(255,0,0),2)
+                    #cv2.line(frame, ((int(1280/2), y)), ((x), (y)), (0, 0, 255), thickness=line_thickness)
+                    #cv2.line(frame, ((int(1280/2),int(720/2))), ((int(1280/2)), (y)), (0, 0, 255), thickness=line_thickness)
+
+                    im = cv2.circle(im, (x, y), radius=5, color=(0, 0, 255), thickness=-1)
+                    file.write(str(x)); file.write(","); file.write(str(y));file.write(","); file.write(str(c)); file.write("\n");
+                    t = t + 1
+
+                    if(t == 100):
+                        cv2.imwrite("ResultDot.png",im)
+                        t = 0
+
+                    xsave = x
+                    ysave = y
+                    wsave = w
+
+
+                if not (label == "person" or label == "TA15" or label == "truck" or label == "car" or label == "motorbike"):
+                    cv2.circle(frame,(center_x,center_y),10,(0,255,0),2)
+                    print(label)
+                    cv2.putText(frame," UNDEFINED OBJECT; BE CAREFUL ",(x,y+30),font,1,(255,0,0),2)
+                    #print('After: '+ label)
     for c in cnts:
     	#print('Test: ', add)
     	add = add + 1
@@ -207,82 +322,27 @@ while True:
                      OldCentrumX = CentrumX; OldCentrumY = CentrumY
 
                      #im = np.zeros((frame.shape[0],frame.shape[1],3),np.uint8)
-                     im = cv2.circle(im, (approx[0][0][0], approx[0][0][1]), radius=5, color=(0, 0, 255), thickness=-1)
-                     t = t + 1
+                     #im = cv2.circle(im, (approx[0][0][0], approx[0][0][1]), radius=5, color=(0, 0, 255), thickness=-1)
+                     #t = t + 1
 
-                     if(t == 100):
-                        cv2.imwrite("ResultDot.png",im)
-                        t = 0
+                     #if(t == 100):
+                        #cv2.imwrite("ResultDot.png",im)
+                        #t = 0
                  xo = x
                  yo = y
 
-
-    for out in outs:
-        for detection in out:
-            scores = detection[5:]
-            class_id = np.argmax(scores)
-            confidence = scores[class_id]
-            if confidence > 0.2:
-                #onject detected
-                center_x= int(detection[0]*width)
-                center_y= int(detection[1]*height)
-                w = int(detection[2]*width)
-                h = int(detection[3]*height)
-
-                #rectangle co-ordinaters
-                x=int(center_x - w/2)
-                y=int(center_y - h/2)
-
-                boxes.append([x,y,w,h]) #put all rectangle areas
-                confidences.append(float(confidence)) #how confidence was that object detected and show that percentage
-                class_ids.append(class_id) #name of the object tha was detected
-
-    indexes = cv2.dnn.NMSBoxes(boxes,confidences,0.4,0.6)
-
-    for i in range(len(boxes)):
-        if i in indexes:
-            x, y, w, h = boxes[i]
-            label = str(classes[class_ids[i]])
-            confidence = confidences[i]
-            color = colors[class_ids[i]]
-
-            #print('Before: '+ label)
-            #cv2.rectangle(frame,(x,y),(x+w,y+h),(0,255,0),2)
-            #cv2.putText(frame,label+" "+str(round(confidence,2)),(x,y+30),font,1,(255,0,0),2)
-            #print(label+" "+str(round(confidence,2)))
-            if(round(confidence,2) >= 0.40):
-                if(label == "person" or label == "TA15" or label == "truck" or label == "car" or label == "motorbike"):
-                    if(label == "motorbike"):
-                        label = "TA15"
-                    #print("Yolo XY:        ", x,y," | Confidence: ", str(round(confidence,2)), " | Differs: ", yydiff, yxdiff)
-                    cv2.rectangle(frame,(x,y),(x+w,y+h),color,2)
-                    oldx = x; oldy = y
-                    print(w, h)
-                    layedCir = cv2.circle(frame, (x, y), radius=100+w, color=(0, 0, 255), thickness=1)
-                    cv2.putText(frame,label+" "+str(round(confidence,2)),(x,y+30),font,1,(255,0,0),2)
-                    #cv2.imwrite('PythonResult/%d.jpg' % a , frame, [cv2.IMWRITE_JPEG_QUALITY, 50])
-                    #a = a + 1
-                    #cv2.imwrite("Black.png",frame)
-                    if(label == "person"):
-                        pl = h
-
-                        pl = po*0.6+pl*0.4
-
-                        cv2.line(frame, (x, y), ((x), (y+h)), (0, 0, 255), thickness=line_thickness)
-                        cv2.putText(frame,"1.8m, PX: " + str(pl),(x,y),font,1,(255,0,0),2)
-                        pl = po
-                else:
-                    cv2.circle(frame,(center_x,center_y),10,(0,255,0),2)
-                    print(label)
-                    cv2.putText(frame," UNDEFINED OBJECT; BE CAREFUL ",(x,y+30),font,1,(255,0,0),2)
-                    #print('After: '+ label)
-
-            else:
-                print(label + round(confidence,2))
+    #angle compared to north
 
     cv2.circle(frame,(int(1280/2),int(720/2)),2,(0,255,0),thickness=-1)
+
+    if (wsave < 150):
+        layedCir2 = cv2.circle(frame, (int(xsave), int(ysave)), radius=100+wsave, color=(0, 0, 255), thickness=1)
+    wsave = wsave * 1.1
+    wsave = int(wsave)
+
     cv2.putText(frame, "Distance: " +str(md) + "m, Camera angle: " + str(angle) + " , Height: " + str(heightD) + "m",(int(1280/2),int(720/2)),font,1,(255,0,0),2)
     cv2.imshow("Image",frame)
+
     key = cv2.waitKey(1) #wait 1ms the loop will start again and we will process the next frame
 
     if key == 27: #esc key stops the process
