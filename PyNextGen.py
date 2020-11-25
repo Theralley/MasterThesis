@@ -7,30 +7,31 @@ from math import sin
 import imutils
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
+from skimage.transform import (hough_line, hough_line_peaks)
 
 imagename = sys.argv[1]
 yoloV = sys.argv[2]
 tt = sys.argv[3]
 heightD = sys.argv[4]
-angle = sys.argv[5]
+camangle = sys.argv[5]
 
 file = open("out.txt","w")
 file.write("x,y,l,offset\n");
 
-#s = math.degrees(90)-math.degrees(int(angle))
+#s = math.degrees(90)-math.degrees(int(camangle))
 #print(s)
 
-#md = angle*3.1415
+#md = camangle*3.1415
 
-#md = (int(height)/(math.sin(math.degrees(90)-math.degrees(int(angle)))))
+#md = (int(height)/(math.sin(math.degrees(90)-math.degrees(int(camangle)))))
 #md = (int(height)/md)
 #md = int(md*0.83333)
-md = (int(heightD)/(math.sin(math.radians(90)-math.radians(int(angle)))))
+md = (int(heightD)/(math.sin(math.radians(90)-math.radians(int(camangle)))))
 md = int(md)
 c = 0
 
 startpos = [16.428125, 59.405547]
-#angle compared to north
+#camangle compared to north
 
 #print(math.pi)
 #print(math.degrees(90))
@@ -54,7 +55,6 @@ OldCentrumX = 0
 OldCentrumY = 0
 
 add = 0
-pl = 28; po = 28
 
 # keep looping
 #Load YOLO
@@ -98,8 +98,14 @@ while True:
     (grabbed, frame) = cap.read()
 
     #JUMPOVER PICTURES#
-    for x in range(0, 10):
-        _,frame= cap.read()
+
+    if(yoloV == "v4-tiny" or yoloV == "v3-tiny"):
+        for x in range(0, 5):
+            _,frame= cap.read()
+
+    if not (yoloV == "v4-tiny" or yoloV == "v3-tiny"):
+        for x in range(0, 10):
+            _,frame= cap.read()
         #frame = cv2.flip(frame,-1) #FlipTest
 
     time.sleep(0.05)
@@ -109,6 +115,7 @@ while True:
         print("ERROR WHILE GRAB")
 
     ##CHANGE COLOR SPECTRUM
+
     b, g, r = cv2.split(frame)
     frame = cv2.merge((b, g, r))
 
@@ -125,6 +132,8 @@ while True:
 
     height,width,channels = frame.shape
     #print(frame.shape[1])
+    #print(frame.shape[0])
+    pl = po = frame.shape[1] * 0.021875
 
     #########EDGE FIXES############
     # convert the frame to grayscale, blur it, and detect edges
@@ -174,41 +183,8 @@ while True:
             #cv2.putText(frame,label+" "+str(round(confidence,2)),(x,y+30),font,1,(255,0,0),2)
             #print(label+" "+str(round(confidence,2)))
             if(round(confidence,2) >= 0.40):
-                if(label == "TA15" or label == "truck" or label == "car" or label == "motorbike"):
-                    if(label == "motorbike"):
-                        label = "TA15"
-                    #print("Yolo XY:        ", x,y," | Confidence: ", str(round(confidence,2)), " | Differs: ", yydiff, yxdiff)
-                    cv2.rectangle(frame,(x,y),(x+w,y+h),color,2)
-                    oldx = x; oldy = y
-                    print(w, h)
-                    layedCir = cv2.circle(frame, (x, y), radius=100+w, color=(100, 100, 255), thickness=1)
-                    cv2.putText(frame,label+" "+str(round(confidence,2)),(x,y+30),font,1,(255,0,0),2)
-
-                    lp = float(1.8/pl)
-
-                    c = math.sqrt((((int(1280/2)-x) * (lp))*((int(1280/2)-x) * (lp)) + (md*md)))
-                    c = int(c)
-
-
-                    cv2.line(frame, ((int(1280/2),int(720/2))), ((x), (y)), (0, 255, 0), thickness=line_thickness)
-                    file.write(str(x)); file.write(","); file.write(str(y));file.write(","); file.write(str(c)); file.write("\n");
-                    #cv2.line(frame, ((int(1280/2), y)), ((x), (y)), (0, 255, 0), thickness=line_thickness)
-                    #cv2.line(frame, ((int(1280/2),int(720/2))), ((int(1280/2)), (y)), (0, 0, 255), thickness=line_thickness)
-
-                    im = cv2.circle(im, (x, y), radius=5, color=(0, 255, 0), thickness=-1)
-                    t = t + 1
-
-                    if(t == 100):
-                        cv2.imwrite("ResultDot.png",im)
-                        t = 0
-
-                        #cv2.imwrite('PythonResult/%d.jpg' % a , frame, [cv2.IMWRITE_JPEG_QUALITY, 50])
-                        #a = a + 1
-                        #cv2.imwrite("Black.png",frame)
-
                 if(label == "person"):
                     pl = h
-
                     pl = pl*0.6+po*0.4
 
                     cv2.line(frame, (x, y), ((x), (y+h)), (0, 0, 255), thickness=line_thickness)
@@ -220,13 +196,16 @@ while True:
 
                     lp = float(1.8/pl)
 
-                    cv2.line(frame, ((int(1280/2),int(720/2))), ((x), (y)), (0, 0, 255), thickness=line_thickness)
-                    cv2.line(frame, ((int(1280/2),int(720))), ((int(1280/2)), (y)), (0, 0, 255), thickness=line_thickness)
+                    cv2.putText(frame,"Length from offset: " + str(c),(int(frame.shape[1]/2)-200,int(frame.shape[0]/2)),font,1,(255,0,0),2)
 
-                    c = math.sqrt((((int(1280/2)-x) * (lp))*((int(1280/2)-x) * (lp)) + (md*md)))
-                    c = int(c)
+                    cv2.line(frame, ((int(frame.shape[1]/2),int(frame.shape[0]/2))), ((x), (y)), (0, 0, 255), thickness=line_thickness)
+                    cv2.line(frame, ((int(frame.shape[1]/2),int(frame.shape[0]))), ((int(frame.shape[1]/2)), (y)), (0, 0, 255), thickness=line_thickness)
 
-                    cv2.putText(frame,"Lengt from offset: " + str(c),(int(1280/2)-200,int(720/2)),font,1,(255,0,0),2)
+                    c = math.sqrt((((int(frame.shape[1]/2)-x) * (lp))*((int(frame.shape[1]/2)-x) * (lp)) + (md*md)))
+
+                    print(c)
+
+                    cv2.putText(frame,"Length from offset: " + str(c),(int(frame.shape[1]/2)-200,int(frame.shape[0]/2)),font,1,(255,0,0),2)
                     #cv2.line(frame, ((int(1280/2), y)), ((x), (y)), (0, 0, 255), thickness=line_thickness)
                     #cv2.line(frame, ((int(1280/2),int(720/2))), ((int(1280/2)), (y)), (0, 0, 255), thickness=line_thickness)
 
@@ -242,8 +221,52 @@ while True:
                     ysave = y
                     wsave = w
 
+                elif(label == "TA15" or label == "truck" or label == "motorbike" or "skateboard" or "car"):
+                    if(label == "motorbike" or "skateboard"):
+                        label = "TA15"
+                    #print("Yolo XY:        ", x,y," | Confidence: ", str(round(confidence,2)), " | Differs: ", yydiff, yxdiff)
+                    cv2.rectangle(frame,(x,y),(x+w,y+h),color,2)
+                    oldx = x; oldy = y
+                    #print(w, h)
+                    layedCir = cv2.circle(frame, (x, y), radius=100+w, color=(100, 100, 255), thickness=1)
+                    cv2.putText(frame,label+" "+str(round(confidence,2)),(x,y+30),font,1,(255,0,0),2)
 
-                if not (label == "person" or label == "TA15" or label == "truck" or label == "car" or label == "motorbike"):
+                    pl = w
+
+                    pl = pl*0.6+po*0.4
+
+                    po = pl
+                    lp = float(5.5/pl)
+
+                    c = math.sqrt((((int(frame.shape[1]/2)-x) * (lp))*((int(frame.shape[1]/2)-x) * (lp)) + (md*md)))
+                    #c = int(c)
+
+                    cv2.putText(frame,"Length from offset: " + str(c),(int(frame.shape[1]/2)-200,int(frame.shape[0]/2)),font,1,(255,0,0),2)
+                    cv2.line(frame, ((int(frame.shape[1]/2),int(frame.shape[0]/2))), ((x), (y)), (0, 255, 0), thickness=line_thickness)
+                    cv2.line(frame, ((int(frame.shape[1]/2),int(frame.shape[0]))), ((x), (y)), (0, 0, 255), thickness=line_thickness)
+                    #print(c)
+
+                    file.write(str(x)); file.write(","); file.write(str(y));file.write(","); file.write(str(c)); file.write("\n");
+                    #cv2.line(frame, ((int(1280/2), y)), ((x), (y)), (0, 255, 0), thickness=line_thickness)
+                    #cv2.line(frame, ((int(1280/2),int(720/2))), ((int(1280/2)), (y)), (0, 0, 255), thickness=line_thickness)
+
+                    im = cv2.circle(im, (x, y), radius=5, color=(0, 255, 0), thickness=-1)
+                    t = t + 1
+
+                    if(t == 100):
+                        cv2.imwrite("ResultDot.png",im)
+                        t = 0
+
+                        #cv2.imwrite('PythonResult/%d.jpg' % a , frame, [cv2.IMWRITE_JPEG_QUALITY, 50])
+                        #a = a + 1
+                        #cv2.imwrite("Black.png",frame)
+
+                    #Angle from offset calculation (line to offset point, line to object == angle in degree)
+                    angle2 = math.atan2(frame.shape[1]/2 - y, x - frame.shape[1]/2) * 180.0 / math.pi;
+                    angle2 = 90 - angle2
+                    print("Angle from offset: ", angle2)
+
+                if not (label == "TA15" or label == "truck" or label == "car" or label == "motorbike" or label == "skateboard" or label == "person"):
                     cv2.circle(frame,(center_x,center_y),10,(0,255,0),2)
                     print(label)
                     cv2.putText(frame," UNDEFINED OBJECT; BE CAREFUL ",(x,y+30),font,1,(255,0,0),2)
@@ -331,16 +354,16 @@ while True:
                  xo = x
                  yo = y
 
-    #angle compared to north
+    #camangle compared to north
 
-    cv2.circle(frame,(int(1280/2),int(720/2)),2,(0,255,0),thickness=-1)
+    cv2.circle(frame,(int(frame.shape[1]/2),int(frame.shape[0]/2)),2,(0,255,0),thickness=-1)
 
     if (wsave < 150):
         layedCir2 = cv2.circle(frame, (int(xsave), int(ysave)), radius=100+wsave, color=(0, 0, 255), thickness=1)
     wsave = wsave * 1.1
     wsave = int(wsave)
 
-    cv2.putText(frame, "Distance: " +str(md) + "m, Camera angle: " + str(angle) + " , Height: " + str(heightD) + "m",(int(1280/2),int(720/2)),font,1,(255,0,0),2)
+    cv2.putText(frame, "Distance: " +str(md) + "m, Camera camangle: " + str(camangle) + " , Height: " + str(heightD) + "m",(int(frame.shape[1]/2),int(frame.shape[0]/2)),font,1,(255,0,0),2)
     cv2.imshow("Image",frame)
 
     key = cv2.waitKey(1) #wait 1ms the loop will start again and we will process the next frame

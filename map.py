@@ -10,7 +10,7 @@ df = pd.read_csv("r2.txt")
 out = pd.read_csv("out.txt")
 file = open("out_c.txt","w")
 
-file.write("x,y,l,offset\n");
+file.write("x,y,l\n");
 
 file1 = open("out.txt","r")
 
@@ -21,13 +21,14 @@ for line in file1:
 line_count = line_count - 1
 
 startpos = [16.428125, 59.405547]
+
 #angle compared to north, - to left, + to right
 angle = -30
 
 R = 6378.1 #Radius of the Earth
-brng = math.radians(angle) #Bearing is 90 degrees converted to radians.
 
 for x in range(line_count):
+    brng2 = math.radians(angle+out.angle[x])
 
     d = out.l[x]*0.001 #Distance in km
 
@@ -36,12 +37,13 @@ for x in range(line_count):
     lat1 = math.radians(startpos[1]) #Current lat point converted to radians
     lon1 = math.radians(startpos[0]) #Current long point converted to radians
 
-    lat2 = math.asin( math.sin(lat1)*math.cos(d/R) + math.cos(lat1)*math.sin(d/R)*math.cos(brng))
+    lat2 = math.asin( math.sin(lat1)*math.cos(d/R) + math.cos(lat1)*math.sin(d/R)*math.cos(brng2))
 
-    lon2 = lon1 + math.atan2(math.sin(brng)*math.sin(d/R)*math.cos(lat1), math.cos(d/R)-math.sin(lat1)*math.sin(lat2))
+    lon2 = lon1 + math.atan2(math.sin(brng2)*math.sin(d/R)*math.cos(lat1), math.cos(d/R)-math.sin(lat1)*math.sin(lat2))
 
     lat2 = math.degrees(lat2)
     lon2 = math.degrees(lon2)
+    print(lat2, lon2)
 
     file.write(str(lon2)); file.write(","); file.write(str(lat2));file.write(","); file.write(str(d)); file.write("\n");
 
@@ -65,7 +67,7 @@ fig, ax = plt.subplots(figsize = (12,9))
 ax.scatter((out.x-0.0002), (out.y-0.0001), zorder=2, alpha= 1, c='r', s=300, marker='s')
 ax.scatter(startpos[0], startpos[1], zorder=2, alpha= 1, c='b', s=12)
 
-ax.set_title('Plotting Spatial Data on Riyadh Map')
+ax.set_title('Plotting Data on Volvo Eskilstuna')
 
 #print(df.longitude)
 #print(df.latitude)
