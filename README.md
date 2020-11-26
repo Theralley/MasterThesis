@@ -2,6 +2,7 @@
 Install MasterThesis run on CPU, (WSL 20.04 Ubuntu, Ubuntu 20.04)
 
 sudo apt update -y && sudo apt-get update -y && sudo apt upgrade -y 
+
 sudo apt install cmake -y
 cmake --version
 sudo apt install libopencv-dev python3-opencv -y 
