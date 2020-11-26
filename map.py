@@ -6,74 +6,96 @@ import math
 
 line_count = 0
 
+#Tracking of DJI drone long/lat from csv
 df = pd.read_csv("r2.txt")
+
+#Copy TA15
+file_TA15 = open("out_TA15.txt","w")
+file_TA15.write("x,y,l\n");
+
+#Copy Person
+file_person = open("out_person.txt","w")
+file_person.write("x,y,l\n");
+
+#Orginal from pynextgen
 out = pd.read_csv("out.txt")
-file = open("out_c.txt","w")
-
-file.write("x,y,l\n");
-
 file1 = open("out.txt","r")
-
+#Counter
 for line in file1:
     if line != "\n":
         line_count += 1
-
 line_count = line_count - 1
 
+#Startpos from drone
 startpos = [16.428125, 59.405547]
 
 #angle compared to north, - to left, + to right
-angle = -30
+angle = -120
 
-R = 6378.1 #Radius of the Earth
+#Radius of the Earth
+R = 6378.1
+
+#FoorLopp of calcilation to calculate long/lat
+for x in range(line_count):
+    if(out.label[x] == "TA15"):
+        brng2 = math.radians(angle+out.angle[x])
+
+        d = out.l[x]*0.001 #Distance in km
+
+        lat1 = math.radians(startpos[1]) #Current lat from drone point converted to radians
+        lon1 = math.radians(startpos[0]) #Current long from drone point converted to radians
+
+        lat2 = math.asin( math.sin(lat1)*math.cos(d/R) + math.cos(lat1)*math.sin(d/R)*math.cos(brng2)) #New long
+
+        lon2 = lon1 + math.atan2(math.sin(brng2)*math.sin(d/R)*math.cos(lat1), math.cos(d/R)-math.sin(lat1)*math.sin(lat2)) #New lat
+
+        lat2 = math.degrees(lat2)
+        lon2 = math.degrees(lon2)
+        #print(lat2, lon2) #Test
+
+        file_TA15.write(str(lon2)); file_TA15.write(","); file_TA15.write(str(lat2)); file_TA15.write(","); file_TA15.write(str(d)); file_TA15.write("\n"); #write to file_TA15
+
+file_TA15.close()
 
 for x in range(line_count):
-    brng2 = math.radians(angle+out.angle[x])
+    if(out.label[x] == "person"):
+        brng2 = math.radians(angle+out.angle[x])
 
-    d = out.l[x]*0.001 #Distance in km
+        d = out.l[x]*0.001 #Distance in km
 
-    #lat2  52.20444 - the lat result I'm hoping for
-    #lon2  0.36056 - the long result I'm hoping for.
-    lat1 = math.radians(startpos[1]) #Current lat point converted to radians
-    lon1 = math.radians(startpos[0]) #Current long point converted to radians
+        #lat2  52.20444 - the lat result I'm hoping for
+        #lon2  0.36056 - the long result I'm hoping for.
+        lat1 = math.radians(startpos[1]) #Current lat point converted to radians
+        lon1 = math.radians(startpos[0]) #Current long point converted to radians
 
-    lat2 = math.asin( math.sin(lat1)*math.cos(d/R) + math.cos(lat1)*math.sin(d/R)*math.cos(brng2))
+        lat2 = math.asin( math.sin(lat1)*math.cos(d/R) + math.cos(lat1)*math.sin(d/R)*math.cos(brng2))
 
-    lon2 = lon1 + math.atan2(math.sin(brng2)*math.sin(d/R)*math.cos(lat1), math.cos(d/R)-math.sin(lat1)*math.sin(lat2))
+        lon2 = lon1 + math.atan2(math.sin(brng2)*math.sin(d/R)*math.cos(lat1), math.cos(d/R)-math.sin(lat1)*math.sin(lat2))
 
-    lat2 = math.degrees(lat2)
-    lon2 = math.degrees(lon2)
-    print(lat2, lon2)
+        lat2 = math.degrees(lat2)
+        lon2 = math.degrees(lon2)
+        #print(lat2, lon2)
 
-    file.write(str(lon2)); file.write(","); file.write(str(lat2));file.write(","); file.write(str(d)); file.write("\n");
+        file_person.write(str(lon2)); file_person.write(","); file_person.write(str(lat2)); file_person.write(","); file_person.write(str(d)); file_person.write("\n");
 
-file.close()
+file_person.close()
 
-out = pd.read_csv("out_c.txt")
-#print(out.x[1])
-#df.head()
+out_TA15 = pd.read_csv("out_TA15.txt")
+out_person = pd.read_csv("out_person.txt")
 
 ruh_m = plt.imread('map.png')
-#print(ruh_m.shape)
 
 img_cropped = ruh_m[77:141, 57:121, :]
-# confirm cropped image shape
-#print(img_cropped.shape)
 
 fig, ax = plt.subplots(figsize = (12,9))
 
-#ax.scatter(df.longitude, df.latitude, zorder=2, alpha= 0.1, c='g', s=12)
-#ax.scatter(startpos2[0], startpos2[1], zorder=2, alpha= 1, c='r', s=100, marker='s')
-ax.scatter((out.x-0.0002), (out.y-0.0001), zorder=2, alpha= 1, c='r', s=300, marker='s')
-ax.scatter(startpos[0], startpos[1], zorder=2, alpha= 1, c='b', s=12)
+ax.scatter((out_TA15.x-0.0002), (out_TA15.y-0.0001), zorder=2, alpha= 1, c='y', s=300, marker='s')
+ax.scatter((out_person.x-0.0002), (out_person.y-0.0001), zorder=2, alpha= 1, c='g', s=300, marker='s')
+ax.scatter(startpos[0], startpos[1], zorder=2, alpha= 1, c='r', s=12)
 
-ax.set_title('Plotting Data on Volvo Eskilstuna')
+ax.set_title('Plotting Data on Volvo Eskilstuna, Green = Person, Yellow = TA15, Red = Position of Drone')
 
-#print(df.longitude)
-#print(df.latitude)
-
-#print(df.longitude.min(), df.longitude.max(), df.latitude.min(), df.latitude.max())
-
+#Sets limits
 xmin = 16.42372
 xmax = 16.43711
 ymin = 59.40307
@@ -91,20 +113,13 @@ BBox = (xmin, xmax, ymin, ymax)
 
 ax.set_axisbelow(True)
 ax.minorticks_on()
-
 ax.grid(which='major', linestyle='-', linewidth='0.5', color='red')
 ax.grid(which='minor', linestyle=':', linewidth='0.5', color='black')
 
-#ax.xaxis.zoom(1)
-#ax.yaxis.zoom(1)
-
+#Plots
 ax.imshow(ruh_m, zorder=0, extent = BBox, aspect= 'auto')
-
 rectangle = patches.Rectangle((xmin1, ymin1), xmax1-xmin1, ymax1-ymin1, fill=False)
+
 ax.add_patch(rectangle)
-
 plt.plot(xmin,xmax)
-
-
-
 plt.show()
