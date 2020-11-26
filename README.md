@@ -90,29 +90,27 @@ Step 3.2 - Example commands
 
 You can change video inputs, see 6.mp4 or other example. You can change weight-file (pre-defined to yolov3 and v4), see v4-tiny or v4. You can change start frame, see 0 in command. You can change height, see 20 or 15(m). You can change angle, see 30 or 60(degree). Height and angle is for distance calculation. Map.py uses data from objectdetection.py. 
 
-If error (nr1)
+Error 1
 	
+	Error
 	ImportError: Cannot load backend 'TkAgg' which requires the 'tk' interactive framework, as 'headless' is currently running
-	
-Fix error (nr1)
 
-	Rerun python3 objectdetection.py 10.MP4 v4-tiny 0 20 30
+	Solution
+	Rerun
+		python3 objectdetection.py 10.MP4 v4-tiny 0 20 30
+		python3 map.py
 	
-	then python3 map.py
+Error 2
 	
-If error (nr2)
-
+	Error
 	module cv2 has no attribute dnn
-
-Fix error (nr2)
 	
+	Solution
 	sudo pip3 install opencv-contrib-python
 	
-If error (nr3)
+Error 3
 
 	Frames on botton left
-	
-Fix error (nr3)
 
 	Unsolved 
 	
