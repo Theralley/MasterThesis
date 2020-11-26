@@ -3,6 +3,8 @@
 
 Installation manual for MasterThesis; run on CPU, (tested WSL 20.04 Ubuntu, Ubuntu 20.04/18.04)
 
+Step 1 - install
+
 	sudo apt update -y && sudo apt-get update -y && sudo apt upgrade -y 
 
 	sudo apt install cmake -y
@@ -34,8 +36,16 @@ Installation manual for MasterThesis; run on CPU, (tested WSL 20.04 Ubuntu, Ubun
 	sudo apt-get install python3-tk -y
 
 	sudo apt-get install tk-dev libagg-dev -y
+
+Step 2 - Download yolov4
+
+	Download yolov4-tiny weight (20mb approx) 
 	
-10.1 If WSL, Install Xming X Server for windows
+	https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjogZC5m6DtAhXjxIsKHRR1CccQFjAAegQIBRAC&url=https%3A%2F%2Fgithub.com%2FAlexeyAB%2Fdarknet%2Freleases%2Fdownload%2Fdarknet_yolo_v4_pre%2Fyolov4-tiny.weights&usg=AOvVaw0mQ6LZDwchkF37sFuwpNSi
+	
+	Add yolov4-tiny, or other yolo.weight to folder 
+
+Step 2.1 (If WSL, Install Xming X Server for windows)
 	
 		start a server on windows
 			
@@ -45,15 +55,7 @@ Installation manual for MasterThesis; run on CPU, (tested WSL 20.04 Ubuntu, Ubun
 		
 		//Have to do this every time you close WSL
 
-Download yolov4
-
-	Download yolov4-tiny weight (20mb approx) 
-	
-	https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjogZC5m6DtAhXjxIsKHRR1CccQFjAAegQIBRAC&url=https%3A%2F%2Fgithub.com%2FAlexeyAB%2Fdarknet%2Freleases%2Fdownload%2Fdarknet_yolo_v4_pre%2Fyolov4-tiny.weights&usg=AOvVaw0mQ6LZDwchkF37sFuwpNSi
-	
-	Add yolov4-tiny, or other yolo.weight to folder 
-
-First testrun
+Step 3 - First testrun
 
 	python3 objectdetection.py 10.mp4 v4-tiny 0 20 30
 	
