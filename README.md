@@ -134,7 +134,7 @@ Error 2
 	Solution
 	sudo pip3 install opencv-contrib-python
 	
-Error 3 (18.04, wrong OpenCV version, update to 4.4.0)
+Error 3 (Wrong OpenCV version, update to 4.4.0)
 	
 	Error
 	Videos plays, nothing gets found
@@ -143,7 +143,7 @@ Error 3 (18.04, wrong OpenCV version, update to 4.4.0)
 	pip3 install scikit-build
 	pip3 install opencv-python -vvv
 	
-Error 4 (18.04, wrong OpenCV version, update to 4.4.0)
+Error 4 (Only 18.04, wrong OpenCV version, update to 4.4.0)
 	
 	Error
 	cv2.error (Open 4.2.0) .... : mish in funcation 'ReadDarknetFromCfgStrem'
