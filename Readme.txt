@@ -23,6 +23,8 @@ pip3 install
 sudo apt-get install python3-tk -y
 sudo apt-get install tk-dev libagg-dev
 
+Download yolov4-tiny weight (20mb approx)
+
 First testrun
 	python3 objectdetection.py 10.MP4 v4-tiny 0 20 30
 	python3 map.py
