@@ -59,11 +59,11 @@ Then start a server on windows
 
 		next, next, next (just press next until its disapear)
 
-	command
+	command in WSL terminal
 	
 		export DISPLAY=:0
 
-	Have to do this every time you close WSL or restart windows. Start Xlaunch when restart windows. export DISPLAY=:0 always when restart WSl. 
+	Have to do this every time you close WSL or restart windows. Start Xlaunch when restart windows. export DISPLAY=:0 always when restart WSl or close Terminal. 
 
 Step 3 - First testrun
 
