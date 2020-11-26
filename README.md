@@ -5,6 +5,12 @@ Installation manual for MasterThesis; run on CPU, (tested WSL 20.04/18.04 Ubuntu
 
 Recommended 20.04
 
+	20.04
+	All Errors solved
+	
+	18.04
+	Not all errors solved
+
 Run all command in linux terminal
 
 Step 1 - install
