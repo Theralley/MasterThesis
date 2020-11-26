@@ -144,6 +144,10 @@ Error 4 (18.04, wrong OpenCV version, update to 4.4.0)
 	pip3 install scikit-build
 	pip3 install opencv-python -vvv
 	sudo apt-get install libgtk2.0-dev
+	sudo apt-get install libqt4-dev
+	cmake -D WITH_QT=ON ..
+	make
+	sudo make install
 	
 Experienced (or lazy) - all installations in on line (speed-install) (20.04)
 
