@@ -45,15 +45,23 @@ Step 2 - Download yolov4
 	
 	Add yolov4-tiny, or other yolo.weight to folder 
 
-Step 2.1 (If WSL, Install Xming X Server for windows)
+Step 2.1 (WSL - Windows subsystem linux)
+
+If WSL
+
+	Install Xming X Server for windows
+
+Then start a server on windows
 	
-		start a server on windows
-			
-			Xlaunch, next, next, next
-		
-		command: export DISPLAY=:0
-		
-		//Have to do this every time you close WSL
+	Search Xlaunch
+
+		next, next, next
+
+	command
+	
+		export DISPLAY=:0
+
+	Have to do this every time you close WSL
 
 Step 3 - First testrun
 
@@ -61,11 +69,12 @@ Step 3 - First testrun
 	
 	python3 map.py
 	
-	also
+Step 3.1 - Test motion detection
 	
 	python3 motion_detector.py -v 10.mp4
+	
 
-Example commands
+Step 3.2 - Example commands
 	
 	python3 objectdetection.py 10.mp4 v4-tiny 0 20 30
 	
@@ -77,17 +86,15 @@ Example commands
 	
 	python3 map.py
 	
-	also
-	
 	python3 motion_detector.py -v 6.mp4
 
 You can change video inputs, see 6.mp4 or other example. You can change weight-file (pre-defined to yolov3 and v4), see v4-tiny or v4. You can change start frame, see 0 in command. You can change height, see 20 or 15(m). You can change angle, see 30 or 60(degree). Height and angle is for distance calculation. Map.py uses data from objectdetection.py. 
 
-If error
+If error (nr1)
 	
 	ImportError: Cannot load backend 'TkAgg' which requires the 'tk' interactive framework, as 'headless' is currently running
 	
-Do this
+Fix error (nr1)
 
 	Rerun python3 objectdetection.py 10.MP4 v4-tiny 0 20 30
 	
