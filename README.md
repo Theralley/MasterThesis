@@ -23,13 +23,13 @@ Installation manual for MasterThesis; run on CPU, (tested WSL 20.04 Ubuntu, Ubun
 
 10 sudo apt-get install fish -y
 
-10.1 If WSL
-
-	Install Xming X Server for windows
+10.1 If WSL, Install Xming X Server for windows
 	
-		start a server
+		start a server on windows
+			
+			Xlaunch, next, next, next
 		
-		export DISPLAY=:0
+		command: export DISPLAY=:0
 		
 		//Have to do this every time you close WSL
 		
