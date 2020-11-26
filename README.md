@@ -3,6 +3,8 @@
 
 Installation manual for MasterThesis; run on CPU, (tested WSL 20.04/18.04 Ubuntu, Ubuntu 20.04/18.04)
 
+Read complete tutorial before install.
+
 Step 0.5 - Install WSL (Windows Subsystem Linux) if want to "run in windows", recommended Ubuntu 20.04 LTS
 
 	https://tinyurl.com/yxmu2v6t
