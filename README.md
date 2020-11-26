@@ -51,7 +51,7 @@ Download yolov4
 	
 	https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjogZC5m6DtAhXjxIsKHRR1CccQFjAAegQIBRAC&url=https%3A%2F%2Fgithub.com%2FAlexeyAB%2Fdarknet%2Freleases%2Fdownload%2Fdarknet_yolo_v4_pre%2Fyolov4-tiny.weights&usg=AOvVaw0mQ6LZDwchkF37sFuwpNSi
 	
-	Add yolov4-tiny, or other yolo.weightit to folder 
+	Add yolov4-tiny, or other yolo.weight to folder 
 
 First testrun
 
