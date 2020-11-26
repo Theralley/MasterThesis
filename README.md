@@ -55,6 +55,10 @@ First testrun
 	
 	python3 map.py
 	
+	also
+	
+	python3 motion_detector.py -v 10.mp4
+	
 
 If error (ImportError: Cannot load backend 'TkAgg' which requires the 'tk' interactive framework, as 'headless' is currently running)
 
