@@ -132,7 +132,7 @@ Error 4 (18.04, wrong OpenCV version, update to 4.4.0)
 
 	Solution
 	pip3 install scikit-build
-	pip3 install opencv-python
+	pip3 install opencv-python -vvv
 	
 Experienced (or lazy) - all installations in on line (speed-install)
 
