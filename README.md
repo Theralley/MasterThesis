@@ -7,25 +7,31 @@ Run all command in linux terminal
 
 Step 1 - install
 
-	sudo apt update -y && sudo apt-get update -y && sudo apt upgrade -y 
-
-	sudo apt install cmake -y
+	sudo apt update
+	
+	sudo apt-get update
+	
+	sudo apt upgrade
+	
+	sudo apt install cmake
 
 	cmake --version
 
-	sudo apt install libopencv-dev python3-opencv -y 
+	sudo apt install libopencv-dev python3-opencv
 
 	opencv_version
 
-	sudo apt install libomp-dev -y 
+	sudo apt install libomp-dev
 
-	sudo apt install make git g++ -y 
+	sudo apt install make git g++
 
-	sudo apt-get install python3-pip -y
+	sudo apt-get install python3-pip
 
-	sudo apt update -y && sudo apt-get update -y && sudo apt upgrade -y
-
-	sudo apt-get install fish -y
+	sudo apt update
+	
+	sudo apt-get update
+	
+	sudo apt upgrade
 		
 	pip3 install imutils
 
@@ -35,15 +41,15 @@ Step 1 - install
 
 	pip3 install pandas
 
-	sudo apt-get install python3-tk -y
+	sudo apt-get install python3-tk
 
-	sudo apt-get install tk-dev libagg-dev -y
+	sudo apt-get install tk-dev libagg-dev
 
 Step 2 - Download yolov4
 
 	Download yolov4-tiny weight (20mb approx) 
 
-	https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjogZC5m6DtAhXjxIsKHRR1CccQFjAAegQIBRAC&url=https%3A%2F%2Fgithub.com%2FAlexeyAB%2Fdarknet%2Freleases%2Fdownload%2Fdarknet_yolo_v4_pre%2Fyolov4-tiny.weights&usg=AOvVaw0mQ6LZDwchkF37sFuwpNSi
+	https://tinyurl.com/y3rzejv8
 	
 	Add yolov4-tiny, or other yolo.weight to folder 
 
@@ -82,7 +88,7 @@ Step 3.2 - Example commands
 	
 	python3 objectdetection.py 5.mp4 v4 0 15 30
 	
-	python3 objectdetection.py 10.mp4 v3-tiny 0 20 60
+	python3 objectdetection.py 10.MP4 v3-tiny 0 20 60
 	
 	python3 objectdetection.py 5.mp4 v3 0 15 30
 	
@@ -90,7 +96,7 @@ Step 3.2 - Example commands
 	
 	python3 motion_detector.py -v 6.mp4
 
-You can change video inputs, see 6.mp4 or other example. You can change weight-file (pre-defined to yolov3 and v4), see v4-tiny or v4. You can change start frame, see 0 in command. You can change height, see 20 or 15(m). You can change angle, see 30 or 60(degree). Height and angle is for distance calculation. Map.py uses data from objectdetection.py. 
+You can change video inputs, see 6.mp4 or other example. You can change weight-file (pre-defined to yolov3 and v4), see v4-tiny or v4. You can change start frame, see 0 in command. You can change height, see 20 or 15(m). You can change angle, see 30 or 60(degree). Height and angle is for distance calculation. Map.py uses data from objectdetection.py. Important to see if mp4 or MP4.
 
 Error 1
 	
@@ -129,4 +135,4 @@ Error 4 (18.04, wrong OpenCV version, update to 4.4.0)
 	
 Experienced (or lazy) - all installations in on line (speed-install)
 
-	sudo apt update -y && sudo apt-get update -y && sudo apt upgrade -y && sudo apt install cmake -y && sudo apt install libopencv-dev python3-opencv -y && sudo apt install libomp-dev -y && sudo apt install make git g++ -y && sudo apt-get install python3-pip -y && sudo apt update -y && sudo apt-get update -y && sudo apt upgrade -y && sudo apt-get install fish -y && pip3 install imutils && pip3 install matplotlib && pip3 install scikit-image && pip3 install pandas && sudo apt-get install python3-tk -y && sudo apt-get install tk-dev libagg-dev -y 
+	sudo apt update -y && sudo apt-get update -y && sudo apt upgrade -y && sudo apt install cmake -y && sudo apt install libopencv-dev python3-opencv -y && sudo apt install libomp-dev -y && sudo apt install make git g++ -y && sudo apt-get install python3-pip -y && sudo apt update -y && sudo apt-get update -y && sudo apt upgrade -y && pip3 install imutils && pip3 install matplotlib && pip3 install scikit-image && pip3 install pandas && sudo apt-get install python3-tk -y && sudo apt-get install tk-dev libagg-dev -y 
