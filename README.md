@@ -109,9 +109,11 @@ Error 2
 	sudo pip3 install opencv-contrib-python
 	
 Error 3
-
+	
+	Error
 	Frames on botton left
 
+	Solution
 	Unsolved 
 	
 Experienced or lazy - all install in on line (speed-install)
