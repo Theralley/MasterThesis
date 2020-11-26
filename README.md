@@ -134,6 +134,10 @@ Error 4 (18.04, wrong OpenCV version, update to 4.4.0)
 	pip3 install scikit-build
 	pip3 install opencv-python -vvv
 	
-Experienced (or lazy) - all installations in on line (speed-install)
+Experienced (or lazy) - all installations in on line (speed-install) (20.04)
 
 	sudo apt update -y && sudo apt-get update -y && sudo apt upgrade -y && sudo apt install cmake -y && sudo apt install libopencv-dev python3-opencv -y && sudo apt install libomp-dev -y && sudo apt install make git g++ -y && sudo apt-get install python3-pip -y && sudo apt update -y && sudo apt-get update -y && sudo apt upgrade -y && pip3 install imutils && pip3 install matplotlib && pip3 install scikit-image && pip3 install pandas && sudo apt-get install python3-tk -y && sudo apt-get install tk-dev libagg-dev -y 
+
+Experienced (or lazy) - all installations in on line (speed-install) (18.04)
+
+	sudo apt update -y && sudo apt-get update -y && sudo apt upgrade -y && sudo apt install cmake -y && sudo apt install libopencv-dev python3-opencv -y && sudo apt install libomp-dev -y && sudo apt install make git g++ -y && sudo apt-get install python3-pip -y && sudo apt update -y && sudo apt-get update -y && sudo apt upgrade -y && pip3 install imutils && pip3 install matplotlib && pip3 install scikit-image && pip3 install pandas && sudo apt-get install python3-tk -y && sudo apt-get install tk-dev libagg-dev -y && pip3 install scikit-build -y && pip3 install opencv-python -vvv
