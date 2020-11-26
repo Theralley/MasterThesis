@@ -100,6 +100,22 @@ Fix error (nr1)
 	
 	then python3 map.py
 	
-All install in on line (speed-install)
+If error (nr2)
+
+	module cv2 has no attribute dnn
+
+Fix error (nr2)
+	
+	sudo pip3 install opencv-contrib-python
+	
+If error (nr3)
+
+	Frames on botton left
+	
+Fix error (nr3)
+
+	Unsolved 
+	
+Experienced or lazy - all install in on line (speed-install)
 
 	sudo apt update -y && sudo apt-get update -y && sudo apt upgrade -y && sudo apt install cmake -y && sudo apt install libopencv-dev python3-opencv -y && sudo apt install libomp-dev -y && sudo apt install make git g++ -y && sudo apt-get install python3-pip -y && sudo apt update -y && sudo apt-get update -y && sudo apt upgrade -y && sudo apt-get install fish -y && pip3 install imutils && pip3 install matplotlib && pip3 install scikit-image && pip3 install pandas && sudo apt-get install python3-tk -y && sudo apt-get install tk-dev libagg-dev -y 
