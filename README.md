@@ -47,13 +47,13 @@ Step 2 - Download yolov4
 	
 	Add yolov4-tiny, or other yolo.weight to folder 
 
-Step 2.1 (WSL - Windows subsystem linux)
+Step 2.1 - (WSL - Windows subsystem linux)
 
 If WSL
 
 	Install Xming X Server for windows
 
-Then start a server on windows
+Step 2.2 - Start a server on windows
 	
 	Search Xlaunch in windows
 
@@ -63,7 +63,7 @@ Then start a server on windows
 	
 		export DISPLAY=:0
 
-	Have to do this every time you close WSL or restart windows. Start Xlaunch when restart windows. export DISPLAY=:0 always when restart WSl or close Terminal. 
+Have to do this every time you close WSL or restart windows. Start Xlaunch when restart windows. export DISPLAY=:0 always when restart WSl or close Terminal. 
 
 Step 3 - First testrun
 
