@@ -113,7 +113,7 @@ Error 2
 Error 3
 	
 	Error
-	Frames on botton left
+	Videos plays, nothing gets found
 
 	Solution
 	Unsolved 
