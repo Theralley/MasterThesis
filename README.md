@@ -61,7 +61,7 @@ Then start a server on windows
 	
 		export DISPLAY=:0
 
-	Have to do this every time you close WSL
+	Have to do this every time you close WSL or restart windows. Start Xlaunch when restart windows. export DISPLAY=:0 always when restart WSl. 
 
 Step 3 - First testrun
 
