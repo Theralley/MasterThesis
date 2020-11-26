@@ -1,7 +1,7 @@
 # Master thesis
 # Using UAVs as a redudant system safety at autnonomous site
 
-Installation manual for MasterThesis; run on CPU, (tested WSL 20.04 Ubuntu, Ubuntu 20.04/18.04)
+Installation manual for MasterThesis; run on CPU, (tested WSL 20.04/18.04 Ubuntu, Ubuntu 20.04/18.04)
 
 Run all command in linux terminal
 
