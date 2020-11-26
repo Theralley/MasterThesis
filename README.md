@@ -55,9 +55,9 @@ If WSL
 
 Then start a server on windows
 	
-	Search Xlaunch
+	Search Xlaunch in windows
 
-		next, next, next
+		next, next, next (just press next until its disapear)
 
 	command
 	
