@@ -45,13 +45,17 @@ Step 1 - install
 
 	sudo apt-get install tk-dev libagg-dev
 
+
 Step 2 - Download yolov4-tiny (20mb approx)
 
 	https://tinyurl.com/y3rzejv8
 	
 Add yolov4-tiny (or other downloaded yolo.weight-file) to folder. Tried files: v3, v3-tiny, v4, v4-tiny.
+
 Best result, high acc, slow speed: v4
+
 Best result, low acc, fast speed: v4-tiny
+
 
 Step 2.1 - (WSL - Windows subsystem linux)
 
@@ -71,16 +75,19 @@ Step 2.2 - Start a server on windows
 
 Have to do this every time you close WSL or restart windows. Start Xlaunch when restart windows. export DISPLAY=:0 always when restart WSl or close Terminal. 
 
+
 Step 3 - First testrun
 
 	python3 objectdetection.py 10.mp4 v4-tiny 0 20 30
 	
 	python3 map.py
 	
+
 Step 3.1 - Test motion detection
 	
 	python3 motion_detector.py -v 10.mp4
 	
+
 
 Step 3.2 - Example commands
 	
@@ -97,6 +104,7 @@ Step 3.2 - Example commands
 	python3 motion_detector.py -v 6.mp4
 
 You can change video inputs, see 6.mp4 or other example. You can change weight-file (pre-defined to yolov3 and v4), see v4-tiny or v4. You can change start frame, see 0 in command. You can change height, see 20 or 15(m). You can change angle, see 30 or 60(degree). Height and angle is for distance calculation. Map.py uses data from objectdetection.py. Important to see if mp4 or MP4.
+
 
 Error 1
 	
