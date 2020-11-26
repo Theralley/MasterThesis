@@ -3,7 +3,11 @@
 
 Installation manual for MasterThesis; run on CPU, (tested WSL 20.04/18.04 Ubuntu, Ubuntu 20.04/18.04)
 
-Recommended 20.04
+Step 0.5 - Install WSL (Windows Subsystem Linux), recommend Ubuntu 20.04 LTS
+
+	https://tinyurl.com/yxmu2v6t
+	
+Errors (see futher down)
 
 	20.04
 	All Errors solved
@@ -13,7 +17,7 @@ Recommended 20.04
 
 Run all command in linux terminal
 
-Step 1 - install
+Step 1 - Install to run object detection
 
 	sudo apt update
 	
