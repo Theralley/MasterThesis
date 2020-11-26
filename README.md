@@ -116,13 +116,14 @@ Error 2
 	Solution
 	sudo pip3 install opencv-contrib-python
 	
-Error 3
+Error 3 (18.04, wrong OpenCV version, update to 4.4.0)
 	
 	Error
 	Videos plays, nothing gets found
 
 	Solution
-	Unsolved 
+	pip3 install scikit-build
+	pip3 install opencv-python -vvv
 	
 Error 4 (18.04, wrong OpenCV version, update to 4.4.0)
 	
