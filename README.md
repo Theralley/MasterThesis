@@ -41,7 +41,7 @@ Install MasterThesis run on CPU, (WSL 20.04 Ubuntu, Ubuntu 20.04)
 
 15 sudo apt-get install python3-tk -y
 
-16 sudo apt-get install tk-dev libagg-dev
+16 sudo apt-get install tk-dev libagg-dev -y
 
 17 Download yolov4-tiny weight (20mb approx) 
 	
@@ -59,3 +59,7 @@ If error (ImportError: Cannot load backend 'TkAgg' which requires the 'tk' inter
 	Rerun python3 objectdetection.py 10.MP4 v4-tiny 0 20 30
 	
 	then python3 map.py
+	
+All in on line
+
+	sudo apt update -y && sudo apt-get update -y && sudo apt upgrade -y && sudo apt install cmake -y && sudo apt install libopencv-dev python3-opencv -y && sudo apt install libomp-dev -y && sudo apt install make git g++ -y && sudo apt-get install python3-pip -y && sudo apt update -y && sudo apt-get update -y && sudo apt upgrade -y && sudo apt-get install fish -y && pip3 install imutils && pip3 install matplotlib && pip3 install scikit-image && pip3 install pandas && sudo apt-get install python3-tk -y && sudo apt-get install tk-dev libagg-dev -y 
