@@ -185,8 +185,8 @@ Enable Windows Subsystem for Linux using PowerShell
 Source: Windows Central
 Type Y and press Enter to confirm and restart your computer.
 
-When Restared, open Microsoft store and search:
+When Restared, open Microsoft store, search and install:
 	
 	Ubuntu 20.04
 	
-	Install
+Later search as a normal app for Ubuntu 20.04, and open. Use the new terminal in step 1-3. 
