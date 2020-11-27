@@ -58,24 +58,31 @@ Step 1 - Install to run object detection
 	sudo apt-get install tk-dev libagg-dev
 
 
-Step 2 - Download yolov4-tiny (20mb approx)
+Step 2 - Download Latest release
+
+	https://github.com/Theralley/MasterThesis/releases
+
+Unzip the folder to a place of your choice 
+
+	
+Step 3 - Download yolov4-tiny (20mb approx)
 
 	https://tinyurl.com/y3rzejv8
 	
-Add yolov4-tiny (or other downloaded yolo.weight-file) to folder. Tried files: v3, v3-tiny, v4, v4-tiny.
+Add yolov4-tiny (or other downloaded yolo.weight-file) to the folder. Tried files: v3, v3-tiny, v4, v4-tiny.
 
 Best result, high acc, slow speed: v4
 
 Best result, low acc, fast speed: v4-tiny
 
 
-Step 2.1 - (WSL - Windows subsystem linux)
+Step 3.1 - (WSL - Windows subsystem linux)
 
 	Install Xming X Server for windows
 	
 	https://sourceforge.net/projects/xming/
 
-Step 2.2 - Start a server on windows
+Step 3.2 - Start a server on windows
 	
 	Search Xlaunch in windows
 
