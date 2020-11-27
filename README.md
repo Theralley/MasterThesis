@@ -105,20 +105,20 @@ command in WSL terminal in the correct folder of choice
 Have to do this every time you close WSL or restart windows. Start Xlaunch when restart windows. export DISPLAY=:0 always when restart WSl or close Terminal. 
 
 
-Step 3 - First testrun
+Step 4 - First testrun
 
 	python3 objectdetection.py 10.mp4 v4-tiny 0 20 30
 	
 	python3 map.py
 	
 
-Step 3.1 - Test motion detection
+Step 4.1 - Test motion detection
 	
 	python3 motion_detector.py -v 10.mp4
 	
 
 
-Step 3.2 - Example commands
+Step 4.2 - Example commands
 	
 	python3 objectdetection.py 10.mp4 v4-tiny 0 20 30
 	
