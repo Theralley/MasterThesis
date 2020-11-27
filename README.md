@@ -71,8 +71,6 @@ Best result, low acc, fast speed: v4-tiny
 
 Step 2.1 - (WSL - Windows subsystem linux)
 
-If WSL
-
 	Install Xming X Server for windows
 	
 	https://sourceforge.net/projects/xming/
