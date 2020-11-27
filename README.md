@@ -5,9 +5,7 @@ Installation manual for MasterThesis; run on CPU, (tested WSL 20.04/18.04 Ubuntu
 
 Read complete tutorial before install.
 
-Step 0.5 - Install WSL (Windows Subsystem Linux) if want to "run in windows", recommended Ubuntu 20.04 LTS
-
-	https://tinyurl.com/yxmu2v6t
+Install WSL is introduced in the lowest part of the readme-file.
 	
 Errors (see futher down)
 
@@ -171,3 +169,24 @@ Experienced (or lazy) - all installations in on line (speed-install) (20.04)
 Experienced (or lazy) - all installations in on line (speed-install) (18.04)
 
 	sudo apt update -y && sudo apt-get update -y && sudo apt upgrade -y && sudo apt install cmake -y && sudo apt install libopencv-dev python3-opencv -y && sudo apt install libomp-dev -y && sudo apt install make git g++ -y && sudo apt-get install python3-pip -y && sudo apt update -y && sudo apt-get update -y && sudo apt upgrade -y && pip3 install imutils && pip3 install matplotlib && pip3 install scikit-image && pip3 install pandas && sudo apt-get install python3-tk -y && sudo apt-get install tk-dev libagg-dev -y && pip3 install scikit-build -y && pip3 install opencv-python -vvv
+	
+Step 0.5 - Install WSL (Windows Subsystem Linux) if want to "run in windows", recommended Ubuntu 20.04 LTS
+
+To install the Windows Subsystem for Linux using PowerShell, use these steps:
+
+Open Start.
+Search for PowerShell, right-click the top result, and select the Run as administrator option.
+
+Type the following command to enable the Linux subsystem and press Enter:
+
+    Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+
+Enable Windows Subsystem for Linux using PowerShell
+Source: Windows Central
+Type Y and press Enter to confirm and restart your computer.
+
+When Restared, open Microsoft store and search:
+	
+	Ubuntu 20.04
+	
+	Install
