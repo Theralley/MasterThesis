@@ -32,6 +32,8 @@ Step 1 - Install to run object detection
 	sudo apt install libopencv-dev python3-opencv
 
 	opencv_version
+	
+If opencv_version = 4.2.0, check error 3 after last sudo apt-get install, and run the commands. 
 
 	sudo apt install libomp-dev
 
