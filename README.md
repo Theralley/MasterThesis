@@ -33,7 +33,7 @@ Step 1 - Install to run object detection
 
 	opencv_version
 	
-If opencv_version = 4.2.0, check error 3 after last sudo apt-get install, and run the commands. 
+If opencv_version = 4.2.0, check error 3 after last sudo apt-get install in this step, and run the commands. 
 
 	sudo apt install libomp-dev
 
