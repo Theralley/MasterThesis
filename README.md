@@ -73,6 +73,10 @@ Step 3 - Download yolov4-tiny (20mb approx)
 	
 Add yolov4-tiny (or other downloaded yolo.weight-file) to the folder. Tried files: v3, v3-tiny, v4, v4-tiny.
 
+Here is yolov4 (200mb) if want to run this on the system
+
+	https://tinyurl.com/y2r5cwhp
+
 Best result, high acc, slow speed: v4
 
 Best result, low acc, fast speed: v4-tiny
