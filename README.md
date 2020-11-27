@@ -170,11 +170,14 @@ Error 4
 	Error
 	cv2.error (Open 4.2.0) .... : mish in funcation 'ReadDarknetFromCfgStrem'
 
-	Solution
+	Solution 1
 	pip3 install scikit-build
 	pip3 install opencv-python -vvv
 	
-	If not prev. work
+	Solution 2
+	Check that the weigth files is downloaded and in the correct folder
+	
+	If not any prev. solution work
 	Unsolved
 	
 Experienced (or lazy) - all installations in on line (speed-install) (20.04)
