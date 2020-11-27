@@ -190,3 +190,9 @@ When Restared, open Microsoft store, search and install:
 	Ubuntu 20.04
 	
 Later search as a normal app for Ubuntu 20.04, and open. Use the new terminal in step 1-3. 
+
+You can later open linux-shell in any folder, such as Master Thesis folder when using this command
+	
+	Shift + Right-click
+	
+	Open Linux Shell here
