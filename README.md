@@ -84,11 +84,15 @@ Step 3.1 - (WSL - Windows subsystem linux)
 
 Step 3.2 - Start a server on windows
 	
-	Search Xlaunch in windows
+Search Xlaunch in windows
 
-		next, next, next (just press next until its disapear)
+	next, next, next (just press next until its disapear)
 
-	command in WSL terminal
+command in WSL terminal in the correct folder of choice 
+
+	Shift + Right-click
+	
+	Open Linux Shell here
 	
 		export DISPLAY=:0
 
