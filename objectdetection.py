@@ -226,8 +226,8 @@ while True:
                     file.write(str(label)); file.write(","); file.write(str(int(x+(w/2)))); file.write(","); file.write(str(int(y+(h/2)))); file.write(","); file.write(str(c3)); file.write(","); file.write(str(angle2)); file.write(","); file.write(str(md)); file.write("\n");
                     t = t + 1
 
-                elif(label == "TA15" or label == "truck" or label == "motorbike" or "skateboard" or "car"):
-                    if(label == "motorbike" or "skateboard"):
+                elif(label == "TA15" or label == "truck" or label == "motorbike" or label == "skateboard" or label == "car"):
+                    if(label == "motorbike" or label == "skateboard"):
                         label = "TA15"
 
                     p1 = [frame.shape[1]/2, frame.shape[0]]
