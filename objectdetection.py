@@ -202,8 +202,8 @@ while True:
                     c3 = (c2 + distance)/2
 
                     #Buffer
-                    xsaveV = int(x+(w/2))
-                    ysaveV = int(y+(h/2))
+                    xsave = int(x+(w/2))
+                    ysave = int(y+(h/2))
                     wsaveV = w
 
                     print("Person length from offset: ", c3)
@@ -332,7 +332,7 @@ while True:
                      cv2.putText(frame,"TA15", (x,y+200),font,1,(255,0,0),2)
                      #cv2.line(frame, (approx[0][0][0], approx[0][0][1]), (approx[3][0][0], approx[3][0][1]), (0, 255, 0), thickness=line_thickness)
                      #cv2.line(frame, (approx[0][0][0], approx[0][0][1]), (approx[3][0][0] + 15, approx[3][0][1] + 15), (0, 0, 255), thickness=line_thickness)
-                     cv2.line(frame, (x1, y1), (x2, y2), (255, 0, 0), thickness=line_thickness)
+                     #cv2.line(frame, (x1, y1), (x2, y2), (255, 0, 0), thickness=line_thickness)
                      x3 = x2 - x1; y3 = y2 - y1
                      x4 = x1 - x2; y4 = y1 - y2
 
@@ -375,12 +375,14 @@ while True:
     #CircleBufferForSafety
     if (wsave < 150 and wsave != 0):
         layedCir2 = cv2.circle(frame, (int(xsave), int(ysave)), radius=100+wsave, color=(0, 0, 255), thickness=1)
-    wsave = wsave * 1.1
+    wsave = wsave * 1.08
     wsave = int(wsave)
 
     if (wsaveV < 150 and wsaveV != 0):
         layedCir2 = cv2.circle(frame, (int(xsaveV), int(ysaveV)), radius=100+wsaveV, color=(0, 0, 255), thickness=1)
-    wsaveV = wsaveV * 1.1
+        cv2.imwrite('PythonResult/%d.jpg' % a , frame, [cv2.IMWRITE_JPEG_QUALITY, 50])
+        a = a + 1
+    wsaveV = wsaveV * 1.08
     wsaveV = int(wsaveV)
 
     #cv2.putText(frame, "Distance: " +str(md) + "m, Camera camangle: " + str(camangle) + " , Height: " + str(heightD) + "m",(int(frame.shape[1]/2),int(frame.shape[0]/2)),font,1,(255,0,0),2)
