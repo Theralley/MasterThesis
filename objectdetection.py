@@ -204,7 +204,7 @@ while True:
                     #Buffer
                     xsave = int(x+(w/2))
                     ysave = int(y+(h/2))
-                    wsaveV = w
+                    wsave = w
 
                     print("Person length from offset: ", c3)
 
