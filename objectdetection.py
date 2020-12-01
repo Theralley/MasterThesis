@@ -375,6 +375,8 @@ while True:
     #CircleBufferForSafety
     if (wsave < 150 and wsave != 0):
         layedCir2 = cv2.circle(frame, (int(xsave), int(ysave)), radius=100+wsave, color=(0, 0, 255), thickness=1)
+        cv2.imwrite('PythonResult/%d.jpg' % a , frame, [cv2.IMWRITE_JPEG_QUALITY, 50])
+        a = a + 1
     wsave = wsave * 1.08
     wsave = int(wsave)
 
