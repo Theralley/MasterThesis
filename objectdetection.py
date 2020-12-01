@@ -36,6 +36,7 @@ OldCentrumX = 0
 OldCentrumY = 0
 add = 0
 bertil = bertil2 = 0
+run_between = 0
 
 #Load YOLO
 if(yoloV == "v4"):
@@ -68,6 +69,9 @@ outputlayers = [layer_names[i[0] - 1] for i in net.getUnconnectedOutLayers()]
 colors = np.random.uniform(0,255,size=(len(classes),3))
 
 #loading image
+if(imagename == '0'):
+    imagename = 0
+
 font = cv2.FONT_HERSHEY_PLAIN
 frame_id = 0
 cap = cv2.VideoCapture(imagename)
@@ -96,6 +100,16 @@ while True:
     if not grabbed:
         break
         print("ERROR WHILE GRAB")
+
+    #########Change brightness in frame############
+    #cv2.imshow("First",frame)
+    if(run_between <= 1):
+        frame = cv2.add(frame,np.array([0.0]))
+        run_between = run_between + 1
+    elif(run_between == 2):
+        frame = cv2.add(frame,np.array([-40.0]))
+        run_between = 0
+    #cv2.imshow("Secound",frame)
 
     ##CHANGE COLOR SPECTRUM
 
@@ -206,7 +220,7 @@ while True:
                     ysave = int(y+(h/2))
                     wsave = w
 
-                    print("Person length from offset: ", c3)
+                    #print("Person length from offset: ", c3)
 
                     im = cv2.circle(im, (xsaveV,ysaveV), radius=5, color=(0, 0, 255), thickness=-1)
                     cv2.imwrite("ResultDot.png",im)
@@ -221,7 +235,7 @@ while True:
                     #Angle from offset calculation (line to offset point, line to object == angle in degree)
                     angle2 = math.atan2(frame.shape[1]/2 - int(y+(h/2)), int(x+(w/2)) - frame.shape[1]/2) * 180.0 / math.pi;
                     angle2 = 90 - angle2
-                    print("Person angle from offset: ", angle2,  "\n")
+                    #print("Person angle from offset: ", angle2,  "\n")
 
                     file.write(str(label)); file.write(","); file.write(str(int(x+(w/2)))); file.write(","); file.write(str(int(y+(h/2)))); file.write(","); file.write(str(c3)); file.write(","); file.write(str(angle2)); file.write(","); file.write(str(md)); file.write("\n");
                     t = t + 1
@@ -260,7 +274,7 @@ while True:
                     ysaveV = int(y+(h/2))
                     wsaveV = w
 
-                    print("Vechile length from offset: ", c3)
+                    #print("Vechile length from offset: ", c3)
 
                     im = cv2.circle(im, (xsaveV,ysaveV), radius=5, color=(0, 0, 255), thickness=-1)
                     cv2.imwrite("ResultDot.png",im)
@@ -275,7 +289,7 @@ while True:
                     #Angle from offset calculation (line to offset point, line to object == angle in degree)
                     angle2 = math.atan2(frame.shape[1]/2 - int(y+(h/2)), int(x+(w/2)) - frame.shape[1]/2) * 180.0 / math.pi;
                     angle2 = 90 - angle2
-                    print("Vehicle angle from offset: ", angle2, "\n")
+                    #print("Vehicle angle from offset: ", angle2, "\n")
 
                     file.write(str(label)); file.write(","); file.write(str(int(x+(w/2)))); file.write(","); file.write(str(int(y+(h/2)))); file.write(","); file.write(str(c3)); file.write(","); file.write(str(angle2)); file.write(","); file.write(str(md)); file.write("\n");
                     t = t + 1
@@ -375,15 +389,15 @@ while True:
     #CircleBufferForSafety
     if (wsave < 150 and wsave != 0):
         layedCir2 = cv2.circle(frame, (int(xsave), int(ysave)), radius=100+wsave, color=(0, 0, 255), thickness=1)
-        cv2.imwrite('PythonResult/%d.jpg' % a , frame, [cv2.IMWRITE_JPEG_QUALITY, 50])
-        a = a + 1
+        #cv2.imwrite('PythonResult/%d.jpg' % a , frame, [cv2.IMWRITE_JPEG_QUALITY, 50])
+        #a = a + 1
     wsave = wsave * 1.08
     wsave = int(wsave)
 
     if (wsaveV < 150 and wsaveV != 0):
         layedCir2 = cv2.circle(frame, (int(xsaveV), int(ysaveV)), radius=100+wsaveV, color=(0, 0, 255), thickness=1)
-        cv2.imwrite('PythonResult/%d.jpg' % a , frame, [cv2.IMWRITE_JPEG_QUALITY, 50])
-        a = a + 1
+        #cv2.imwrite('PythonResult/%d.jpg' % a , frame, [cv2.IMWRITE_JPEG_QUALITY, 50])
+        #a = a + 1
     wsaveV = wsaveV * 1.08
     wsaveV = int(wsaveV)
 
