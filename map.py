@@ -91,8 +91,8 @@ img_cropped = ruh_m[77:141, 57:121, :]
 
 fig, ax = plt.subplots(figsize = (12,9))
 
-ax.scatter((out_TA15.x-0.0002), (out_TA15.y-0.0001), zorder=2, alpha= 1, c='y', s=300, marker='s')
-ax.scatter((out_person.x-0.0002), (out_person.y-0.0001), zorder=2, alpha= 1, c='g', s=300, marker='s')
+ax.scatter((out_TA15.x), (out_TA15.y), zorder=2, alpha= 1, c='y', s=300, marker='s')
+ax.scatter((out_person.x), (out_person.y), zorder=2, alpha= 1, c='g', s=300, marker='s')
 ax.scatter(startpos[0], startpos[1], zorder=2, alpha= 1, c='r', s=12)
 
 ax.set_title('Plotting Data on Volvo Eskilstuna, Green = Person, Yellow = TA15, Red = Position of Drone')

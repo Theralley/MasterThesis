@@ -57,16 +57,16 @@ while True:
 	if frame is None:
 		break
 	# resize the frame, convert it to grayscale, and blur it
-	motion_grey = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-	motion_grey = cv2.GaussianBlur(motion_grey, (3, 3), 5)
-	motion_grey = cv2.Canny(motion_grey, 200, 200)
+	gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+	gray = cv2.GaussianBlur(gray, (3, 3), 5)
+	gray = cv2.Canny(gray, 200, 200)
 	# if the first frame is None, initialize it
 	if firstFrame is None:
-		firstFrame = motion_grey
+		firstFrame = gray
 		continue
 	# compute the absolute difference between the current frame and
 	# first frame
-	frameDelta = cv2.absdiff(firstFrame, motion_grey)
+	frameDelta = cv2.absdiff(firstFrame, gray)
 	thresh = cv2.threshold(frameDelta, 25, 255, cv2.THRESH_BINARY)[1]
 	# dilate the thresholded image to fill in holes, then find contours
 	# on thresholded image
@@ -76,11 +76,12 @@ while True:
 	# loop over the contours
 	for c in cnts:
 		if i == 1:
-			firstFrame = motion_grey
+			firstFrame = gray
 			i = 0
 		# if the contour is too small, ignore it
-		if cv2.contourArea(c) < 180:
+		if cv2.contourArea(c) < 200:
 			continue
+
 		# compute the bounding box for the contour, draw it on the frame,
 		# and update the text
 		(x, y, w, h) = cv2.boundingRect(c)
@@ -99,7 +100,7 @@ while True:
 		w = wo*0.7+w*0.3
 		h = ho*0.7+h*0.3
 
-		#square = cv2.rectangle(frame, (int(x), int(y)), (int(x) + int(w), int(y) + int(h)), (0, 255, 0), 2)
+		square = cv2.rectangle(frame, (int(x), int(y)), (int(x) + int(w), int(y) + int(h)), (0, 255, 0), 2)
 		#print(x, y, xo, yo)
 		xv = x - xo
 		yv = y - yo
@@ -114,7 +115,9 @@ while True:
 		radius = radiusO*0.95+radius*0.05
 		radiusO = radius
 
-		circle = cv2.circle(frame, (int(x+w/2), int(y+h/2)), int(radius), color=(200, 0, 200), thickness=1)
+		circle = cv2.circle(frame, (int(x+w/2), int(y+h/2)), int(radius), color=(0, 0, 255), thickness=1)
+
+		circleO = circle
 
 		#cv2.putText(frame, str(a),(x,y+30),font,1,(255,0,0),2)
 		#cv2.circle(frame, (x, y), radius=4, color=(0, 0, 255), thickness=1)
@@ -140,8 +143,8 @@ while True:
 
 		file.write(str(x)); file.write(","); file.write(str(y)); file.write("\n");
 
-	#square = cv2.rectangle(frame, (int(x), int(y)), (int(x) + int(w), int(y) + int(h)), (0, 255, 0), 2)
-	#circle = cv2.circle(frame, (int(x+w/2), int(y+h/2)), int(radius), color=(0, 0, 255), thickness=1)
+	square = cv2.rectangle(frame, (int(x), int(y)), (int(x) + int(w), int(y) + int(h)), (0, 255, 0), 2)
+	circle = cv2.circle(frame, (int(x+w/2), int(y+h/2)), int(radius), color=(0, 0, 255), thickness=1)
 	cv2.imshow("Security Feed", frame)
 	a = int(a) + 1
 	i = i + 1
