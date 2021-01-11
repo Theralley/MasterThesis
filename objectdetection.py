@@ -1,3 +1,6 @@
+#Verison: 0.1.7
+#Author: Rhn15001, Rasmus Hamren
+#Applying UAVs to Support the Safety in Autonomous Operated Open Surface Mines
 import cv2
 import numpy as np
 import time
@@ -35,7 +38,7 @@ Multiplier = 0.5
 OldCentrumX = 0
 OldCentrumY = 0
 add = 0
-bertil = bertil2 = 0
+loop_stopper = loop_stopper2 = 0
 
 #Load YOLO
 if(yoloV == "v4"):
@@ -116,9 +119,9 @@ while True:
     height,width,channels = frame.shape
     #print(frame.shape[1])
     #print(frame.shape[0])
-    if(frame.shape[1] > 0 and bertil == 0):
+    if(frame.shape[1] > 0 and loop_stopper == 0):
         pl = po = (frame.shape[1] * 0.021875)
-        bertil = 1
+        loop_stopper = 1
 
     #########EDGE FIXES############
     # convert the frame to grayscale, blur it, and detect edges
@@ -222,7 +225,7 @@ while True:
                     angle2 = math.atan2(frame.shape[1]/2 - int(y+(h/2)), int(x+(w/2)) - frame.shape[1]/2) * 180.0 / math.pi;
                     angle2 = 90 - angle2
                     print("Person angle from offset: ", angle2,  "\n")
-					
+
                     c3 = c3 * math.sin(math.radians(int(camangle)))
 
                     file.write(str(label)); file.write(","); file.write(str(int(x+(w/2)))); file.write(","); file.write(str(int(y+(h/2)))); file.write(","); file.write(str(c3)); file.write(","); file.write(str(angle2)); file.write(","); file.write(str(md)); file.write("\n");
@@ -278,7 +281,7 @@ while True:
                     angle2 = math.atan2(frame.shape[1]/2 - int(y+(h/2)), int(x+(w/2)) - frame.shape[1]/2) * 180.0 / math.pi;
                     angle2 = 90 - angle2
                     print("Vehicle angle from offset: ", angle2, "\n")
-					
+
                     c3 = c3 * math.sin(math.radians(int(camangle)))
 
                     file.write(str(label)); file.write(","); file.write(str(int(x+(w/2)))); file.write(","); file.write(str(int(y+(h/2)))); file.write(","); file.write(str(c3)); file.write(","); file.write(str(angle2)); file.write(","); file.write(str(md)); file.write("\n");
