@@ -202,7 +202,9 @@ while True:
                     cv2.putText(frame,label+" "+str(round(confidence,2)),
                     (x,y+30),font,1,(255,0,0),2)
 
-                    c2 = math.sqrt((((int(frame.shape[1]/2)-x) * (lp))*((int(frame.shape[1]/2)-x) * (lp)) + (md*md)))
+                    c2 = math.sqrt((((int(frame.shape[1]/2)-x) *
+                    (lp))*((int(frame.shape[1]/2)-x) * (lp)) + (md*md)))
+
                     c3 = (c2 + distance)/2
 
                     #Buffer
@@ -219,7 +221,8 @@ while True:
                         cv2.imwrite("ResultDot.png",im)
                         t = 0
 
-                    #Angle from offset calculation (line to offset point, line to object == angle in degree)
+                    #Angle from offset calculation (line to offset point,
+                    #line to object == angle in degree)
                     angle2 = math.atan2(frame.shape[1]/2 - int(y+(h/2)),
                     int(x+(w/2)) - frame.shape[1]/2) * 180.0 / math.pi;
 
@@ -237,13 +240,16 @@ while True:
 
                     t = t + 1
 
-                elif(label == "TA15" or label == "truck" or label == "motorbike" or label == "skateboard" or label == "car"):
+                elif(label == "TA15" or label == "truck" or
+                label == "motorbike" or label == "skateboard"
+                or label == "car"):
+
                     if(label == "motorbike" or label == "skateboard"):
                         label = "TA15"
 
                     p1 = [frame.shape[1]/2, frame.shape[0]]
                     p2 = [x, y]
-                    distance = math.sqrt( ((p1[0]-p2[0])**2)+((p1[1]-p2[1])**2) )
+                    distance = math.sqrt(((p1[0]-p2[0])**2)+((p1[1]-p2[1])**2))
 
                     ans = md/(frame.shape[0]/2)
                     distance = ans * distance
@@ -257,7 +263,9 @@ while True:
                     cv2.putText(frame,label+" "+str(round(confidence,2)),
                     (x,y+30),font,1,(255,0,0),2)
 
-                    c2 = math.sqrt((((int(frame.shape[1]/2)-x) * (lp))*((int(frame.shape[1]/2)-x) * (lp)) + (md*md)))
+                    c2 = math.sqrt((((int(frame.shape[1]/2)-x) *
+                    (lp))*((int(frame.shape[1]/2)-x) * (lp)) + (md*md)))
+
                     c3 = (c2 + distance)/2
 
                     #Buffer
@@ -292,7 +300,9 @@ while True:
                     file.write(str(md)); file.write("\n");
                     t = t + 1
 
-                if not (label == "TA15" or label == "truck" or label == "car" or label == "motorbike" or label == "skateboard" or label == "person"):
+                if not (label == "TA15" or label == "truck" or label == "car" or
+                label == "motorbike" or label == "skateboard" or
+                label == "person"):
                     cv2.circle(frame,(center_x,center_y),10,(0,255,0),2)
                     print(label)
                     cv2.putText(frame," UNDEFINED OBJECT; BE CAREFUL ",
@@ -371,8 +381,11 @@ while True:
                      layedCir = cv2.circle(frame, (CentrumX, CentrumY),
                      radius=200, color=(0, 0, 255), thickness=1)
 
-                     CentrumX = ((((Multiplier*CentrumX)) + ((1 - Multiplier)*OldCentrumX)))
-                     CentrumY = ((((Multiplier*CentrumY)) + ((1 - Multiplier)*OldCentrumY)))
+                     CentrumX = ((((Multiplier*CentrumX)) +
+                     ((1 - Multiplier)*OldCentrumX)))
+
+                     CentrumY = ((((Multiplier*CentrumY)) +
+                     ((1 - Multiplier)*OldCentrumY)))
 
                      OldCentrumX = CentrumX; OldCentrumY = CentrumY
 

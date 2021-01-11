@@ -135,9 +135,12 @@ while True:
 		ao = a
 
 		#Circle print
-		im = cv2.circle(im, (int(x), int(y)), radius=4, color=(0, 0, 255), thickness=-1)
+		im = cv2.circle(im, (int(x), int(y)),
+		radius=4, color=(0, 0, 255), thickness=-1)
 
-		angle2 = math.atan2(frame.shape[1]/2 - int(y+(h/2)), int(x+(w/2)) - frame.shape[1]/2) * 180.0 / math.pi
+		angle2 = math.atan2(frame.shape[1]/2 - int(y+(h/2)),
+		int(x+(w/2)) - frame.shape[1]/2) * 180.0 / math.pi
+
 		angle2 = 90 - angle2
 
 		#Prints xy coorinates on the frame
@@ -154,14 +157,23 @@ while True:
 		po = pl
 		lp = 2.3/pl
 
-		c2 = math.sqrt((((int(frame.shape[1]/2)-x) * (lp))*((int(frame.shape[1]/2)-x) * (lp)) + (md*md)))
+		c2 = math.sqrt((((int(frame.shape[1]/2)-x) * (lp))*
+		((int(frame.shape[1]/2)-x) * (lp)) + (md*md)))
 		c3 = (c2 + distance)/2
 
-		file.write("motion"); file.write(","); file.write(str(int(x+(w/2)))); file.write(","); file.write(str(int(y+(h/2)))); file.write(","); file.write(str(c3)); file.write(","); file.write(str(angle2)); file.write(","); file.write("0"); file.write("\n");
+		file.write("motion"); file.write(",");
+		file.write(str(int(x+(w/2)))); file.write(",");
+		file.write(str(int(y+(h/2)))); file.write(","); file.write(str(c3));
+		file.write(","); file.write(str(angle2)); file.write(",");
+		file.write("0"); file.write("\n");
 
-	square = cv2.rectangle(frame, (int(x), int(y)), (int(x) + int(w), int(y) + int(h)), (0, 255, 0), 2)
-	circle = cv2.circle(frame, (int(x+w/2), int(y+h/2)), int(radius), color=(0, 0, 255), thickness=1)
-	cv2.imshow("Security Feed", frame)
+	square = cv2.rectangle(frame, (int(x), int(y)),
+	(int(x) + int(w), int(y) + int(h)), (0, 255, 0), 2)
+
+	circle = cv2.circle(frame, (int(x+w/2), int(y+h/2)),
+	int(radius), color=(0, 0, 255), thickness=1)
+
+	cv2.imshow("Motion detection", frame)
 	a = int(a) + 1
 	i = i + 1
 
