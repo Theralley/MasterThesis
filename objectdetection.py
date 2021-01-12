@@ -208,9 +208,9 @@ while True:
                     c3 = (c2 + distance)/2
 
                     #Buffer
-                    xsaveV = int(x+(w/2))
-                    ysaveV = int(y+(h/2))
-                    wsaveV = w
+                    xsave = int(x+(w/2))
+                    ysave = int(y+(h/2))
+                    wsave = w
 
                     print("Person length from offset: ", c3)
 
@@ -397,9 +397,11 @@ while True:
     cv2.circle(frame,(int(frame.shape[1]/2),int(frame.shape[0]/2)),2,
     (0,255,0),thickness=-1)
 
+    print (wsave, wsaveV)
+
     #CircleBufferForSafety
     if (wsave < 150 and wsave != 0):
-        layedCir2 = cv2.circle(frame, (int(xsave), int(ysave)),
+        layedCir3 = cv2.circle(frame, (int(xsave), int(ysave)),
         radius=100+wsave, color=(0, 0, 255), thickness=1)
     wsave = wsave * 1.1
     wsave = int(wsave)
