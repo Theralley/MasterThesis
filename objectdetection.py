@@ -3,10 +3,16 @@
 #Applying UAVs to Support the Safety in Autonomous Operated Open Surface Mines
 
 #Edge-detection is inspired by reference:
-#A.Rosebrock,“Targetacquired:Findingtargetsindroneandquad-coptervideostreamsusingpythonandopencv,”PyImageSearch,ac-cessed:2021-01-04.[Online].Available: https://www.pyimagesearch.com/2015/05/04/target-acquired-finding-targets-in-drone-and-quadcopter-video-streams-using-python-and-opencv/
+#A.Rosebrock,“Targetacquired:Findingtargetsindroneandquad-
+#coptervideostreamsusingpythonandopencv,”, PyImageSearch,
+#accessed:2021-01-04.[Online].
+#Available: https://tinyurl.com/y6kd3tsy
 
 #Object detection, YOLO, is inspired by reference:
-#Abdulkhadeer0200,“Real-time-object-detection-using-yolo,”https://github.com/Abdulkhadeer0200/Real-time-object-detection-using-YOLO/blob/master/realtimeyolo.py, , commit= 5d77ca5c23928df4f851471ad90ee413728f1c2b, 2019, accessed:  2021-01-04. 
+#Abdulkhadeer0200,
+#“Real-time-object-detection-using-yolo,”
+#https://tinyurl.com/y34qtepv,
+#commit= 5d77ca5c23928df4f851471ad90ee413728f1c2b, 2019, accessed:  2021-01-04.
 
 import cv2
 import numpy as np
