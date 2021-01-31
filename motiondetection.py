@@ -1,6 +1,10 @@
-#Verison: 0.1.7
+#Verison: 0.1.8
 #Author: Rhn15001, Rasmus Hamren
 #Applying UAVs to Support the Safety in Autonomous Operated Open Surface Mines
+
+#Inspired by reference:
+#A.   Rosebrock,   “Basic   motion   detection   and   tracking   with   python   and   opencv,”   PyImage-Search,  accessed:   2021-01-04.  [Online].  Available:  https://www.pyimagesearch.com/2015/05/25/basic-motion-detection-and-tracking-with-python-and-opencv/
+
 from imutils.video import VideoStream
 import argparse
 import imutils
