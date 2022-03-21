@@ -84,7 +84,7 @@ cv2.imwrite("ResultDot.png",im)
 im = mpimg.imread("ResultDot.png")
 
 layer_names = net.getLayerNames()
-outputlayers = [layer_names[i - 1] for i in net.getUnconnectedOutLayers()]
+outputlayers = [layer_names[i[0] - 1] for i in net.getUnconnectedOutLayers()]
 
 colors = np.random.uniform(0,255,size=(len(classes),3))
 
